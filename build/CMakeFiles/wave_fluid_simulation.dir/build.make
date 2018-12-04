@@ -90,6 +90,27 @@ wave_fluid_simulation_EXTERNAL_OBJECTS =
 
 wave_fluid_simulation: CMakeFiles/wave_fluid_simulation.dir/main.cpp.o
 wave_fluid_simulation: CMakeFiles/wave_fluid_simulation.dir/build.make
+wave_fluid_simulation: /home/karimh89/Desktop/Karim/SLAM/ROS_ORB_SLAM/catkin_ws/build/pangolin_catkin/pangolin_EXTERNAL-prefix/src/pangolin_EXTERNAL-build/src/libpangolin.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libGL.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libGLU.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libGLEW.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libSM.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libICE.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libX11.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libXext.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libpython3.6m.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libdc1394.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libavcodec.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libavformat.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libavutil.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libswscale.so
+wave_fluid_simulation: /usr/lib/libOpenNI.so
+wave_fluid_simulation: /usr/lib/libOpenNI2.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libpng.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libz.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libjpeg.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libtiff.so
+wave_fluid_simulation: /usr/lib/x86_64-linux-gnu/libIlmImf.so
 wave_fluid_simulation: CMakeFiles/wave_fluid_simulation.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/karimh89/Desktop/Karim/fluid/simulations/wave_fluid_simulation/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable wave_fluid_simulation"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/wave_fluid_simulation.dir/link.txt --verbose=$(VERBOSE)
