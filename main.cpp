@@ -59,8 +59,7 @@ int TOTAL_SIM=1000;
 cout<<"Progress Done : ";
 for (int i=0;i<=TOTAL_SIM;i++){
 wave_1=update_motion(wave_1,time_interval);
-//wave_2=update_motion(wave_2,time_interval);
-cout<<"after updating "<<wave_1.x<<endl;
+wave_2=update_motion(wave_2,time_interval);
 }
   return 0;
 }
