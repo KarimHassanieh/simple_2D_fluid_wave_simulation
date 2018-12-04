@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/karimh89/Desktop/Karim/fluid/simulations/wave_fluid_simulation/main.cpp
+algorithm
+-
+array
+-
+chrono
+-
+cmath
+-
+cstdio
+-
+string
+-
+thread
+-
+jet/jet.h
+-
+iostream
+-
+
