@@ -8,7 +8,7 @@
 
 cmake_minimum_required(VERSION 2.8.9)
 find_package(Pangolin  REQUIRED)
-include_directories(${Pangolin_INCLUDE_DIRS})
+
 
 add_executable(wave_fluid_simulation  main.cpp)
-target_link_libraries(wave_fluid_simulation ${Pangolin_LIBRARIES})
+target_link_libraries(wave_fluid_simulation -lboost_iostreams -lboost_system -lboost_filesystem)

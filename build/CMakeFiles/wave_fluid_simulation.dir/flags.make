@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/karimh89/Desktop/Karim/SLAM/ROS_ORB_SLAM/catkin_ws/build/pangolin_catkin/pangolin_EXTERNAL-prefix/src/pangolin_EXTERNAL/include -I/home/karimh89/Desktop/Karim/SLAM/ROS_ORB_SLAM/catkin_ws/build/pangolin_catkin/pangolin_EXTERNAL-prefix/src/pangolin_EXTERNAL-build/src/include -I/usr/include/eigen3 
+CXX_INCLUDES = 
 

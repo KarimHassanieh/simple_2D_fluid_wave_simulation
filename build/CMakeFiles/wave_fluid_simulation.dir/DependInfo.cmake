@@ -10,9 +10,6 @@ set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/karimh89/Desktop/Karim/SLAM/ROS_ORB_SLAM/catkin_ws/build/pangolin_catkin/pangolin_EXTERNAL-prefix/src/pangolin_EXTERNAL/include"
-  "/home/karimh89/Desktop/Karim/SLAM/ROS_ORB_SLAM/catkin_ws/build/pangolin_catkin/pangolin_EXTERNAL-prefix/src/pangolin_EXTERNAL-build/src/include"
-  "/usr/include/eigen3"
   )
 
 # Targets to which this target links.
