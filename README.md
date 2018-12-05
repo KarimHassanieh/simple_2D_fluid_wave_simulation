@@ -1,2 +1,2 @@
-# simple 2D fluid wave simulation
+# Simple 2D fluid Wave Simulation
 WORK IN PROGRESS
