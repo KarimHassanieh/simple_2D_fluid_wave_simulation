@@ -26,9 +26,23 @@ struct wave {
 
 };
 struct display{
-std::vector<std::pair<double, double> > union_pts;
+//const array<double, double> )  union_pts;
 std::vector<std::pair<double, double> > pts;
 };
+
+struct Comp {
+  bool operator()(const std::pair<int, int> &a, const std::pair<int, int> &b) {
+    if (a.first != b.first) {
+      return a.first < b.first;
+    }
+    return a.second > b.second;
+  }
+
+};
+
+
+
+
 
 
 
@@ -54,7 +68,7 @@ current_wave.speed=updated_wave.speed;
 return current_wave;
 }
 
-display accumlate_wave(wave _wave,display display )
+vector<std::pair<double, double> > accumlate_wave(wave _wave,display display )
 
 {
 
@@ -64,24 +78,24 @@ double amplitude=_wave.height;
 double wavelength=_wave.wavelength;
 
 double quarterWavelenghth=wavelength/4;
-std::vector<std::pair<double, double> > pts;
+vector<pair<double, double> > pts;
 int start=(x-(quarterWavelenghth))*number_of_points;
 int  end=((quarterWavelenghth)+x)*number_of_points;
 
 for(int i=start;i<=end;i++)
 {
+
 double xpt_position = ((i + 0.5) / number_of_points -x);
 double y_pos = amplitude*0.5*(cos(min(xpt_position* M_PI / quarterWavelenghth, M_PI)) + 1.0);
 pts.push_back(std::make_pair(xpt_position+x,y_pos));
 int iNew = i;
-if (i < 0) {iNew = -i - 1;}
-else if (i >= number_of_points) {iNew = 2 * number_of_points - i - 1;}
-
+//if (i < 0) {iNew = -i - 1;}
+//else if (i >= number_of_points) {iNew = 2 * number_of_points - i - 1;}
+//(heightField)[iNew] += y_pos;
 }
-display.pts=pts;
-return display;
+//display.pts=pts;
+return pts;
 }
-
 
 int main (){
 wave wave_1,wave_2;
@@ -117,25 +131,34 @@ wave_2=update_motion(wave_2,time_interval);
 // You can also use a separate container for each column, like so:
 std::vector<std::pair<double, double> > pts_wave_1;
 std::vector<std::pair<double, double> > pts_wave_2;
+std::vector<std::pair<double, double> > pts_union;
 display display;
+//array<double, 80> heightField;
+// Clear height field
+//for (double y_pos : heightField) {y_pos = 0.0;}
+pts_wave_1=accumlate_wave(wave_1,display);
+pts_wave_2=accumlate_wave(wave_2,display);
 
-display=accumlate_wave(wave_1,display);
-pts_wave_1= display.pts;
-display=accumlate_wave(wave_2,display);
-pts_wave_2=display.pts;
 
+//Comp comp_functor;
+//std::sort(pts_wave_1.begin(), pts_wave_1.end(), comp_functor);
+//std::sort(pts_wave_2.begin(), pts_wave_2.end(), comp_functor);
+
+
+merge(pts_wave_2.begin(), pts_wave_2.end(), pts_wave_1.begin(), pts_wave_1.end(), std::back_inserter(pts_union));
 gp << "set yrange [-0.5:1]\n";
 gp << "set xrange [0:1]\n";
 gp<< "set title 'Simulation Window' \n";
 gp<< "set xlabel 'X Axis' \n";
 gp<< "set ylabel 'Y Axis' \n";
 //gp << "plot '-' with linespoints title 'Wave 1', "
-//		<< "'-' with linespoints title 'Wave 2'\n";
-gp << "plot '-' binary" << gp.binFmt1d(display.union_pts, "array") << "with lines notitle\n";
-gp.sendBinary1d(display.union_pts);
+//		<< "'-' with linespoints title 'Wave 2',"
+gp<< "plot '-' with linespoints title 'Resultant Wave'\n";
+//gp << "plot '-' binary" << gp.binFmt1d(display.union_pts, "array") << "with lines notitle\n";
+//gp.sendBinary1d(display.union_pts);
 //gp.send1d(pts_wave_1);
 //gp.send1d(pts_wave_2);
-
+gp.send1d(pts_union);
 gp.flush();
 
 usleep(1000);
