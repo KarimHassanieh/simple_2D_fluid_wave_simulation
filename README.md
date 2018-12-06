@@ -1,2 +1,2 @@
 # Simple 2D fluid Wave Simulation
-WORK IN PROGRESS
+![](wave.gif)
