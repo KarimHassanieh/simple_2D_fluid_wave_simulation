@@ -15,7 +15,7 @@
 
 using namespace std;
 
-
+const int kNumberofPoints=80;
 
 struct wave {
   double x;
@@ -23,20 +23,6 @@ struct wave {
   double wavelength;
   double height;
   double number_of_points;
-
-};
-struct display{
-//const array<double, double> )  union_pts;
-std::vector<std::pair<double, double> > pts;
-};
-
-struct Comp {
-  bool operator()(const std::pair<int, int> &a, const std::pair<int, int> &b) {
-    if (a.first != b.first) {
-      return a.first < b.first;
-    }
-    return a.second > b.second;
-  }
 
 };
 
@@ -63,10 +49,10 @@ current_wave.speed=updated_wave.speed;
 return current_wave;
 }
 
-void accumlate_wave(wave _wave,display display,vector<pair<double, double> >* pts,vector<pair<double, double> >* pts_union, array<double,80>* heightField)
+void accumlate_wave(wave _wave,vector<pair<double, double> >* pts,vector<pair<double, double> >* pts_union, array<double,kNumberofPoints>* heightField)
 
 {
-double number_of_points=_wave.number_of_points;
+double number_of_points=kNumberofPoints;
 double x=_wave.x;
 double amplitude=_wave.height;
 double wavelength=_wave.wavelength;
@@ -75,24 +61,25 @@ double quarterWavelenghth=wavelength/4;
 
 int start=(x-(quarterWavelenghth))*number_of_points;
 int  end=((quarterWavelenghth)+x)*number_of_points;
-int sum = 0;
+int counter= 0;
 
 for(int i=start;i<=end;i++)
 {
 
-double xpt_position = (fabs(i + 0.5) / number_of_points -x);
+double xpt_position = ((i + 0.5) / number_of_points -x);
 double y_pos = amplitude*0.5*(cos(min(xpt_position* M_PI / quarterWavelenghth, M_PI)) + 1.0);
 (*pts).push_back(std::make_pair(xpt_position+x,y_pos));
 int iNew = i;
 if (i < 0) {iNew = -i - 1;}
 else if (i >= number_of_points) {iNew = 2 * number_of_points - i - 1;}
-sum=(*heightField)[iNew]+y_pos+sum;
-(*heightField)[iNew] = (*heightField)[iNew]+y_pos;
+
+(*heightField)[iNew] += y_pos;
 (*pts_union).push_back(make_pair(xpt_position+x,(*heightField)[iNew]));
 
+counter++;
 }
-//display.pts=pts;
-//return pts;
+
+
 }
 
 int main (){
@@ -109,21 +96,17 @@ wave_2.wavelength=1.2;
 //Max max_height
 wave_1.height=0.5;
 wave_2.height=0.4;
-//Number of Sampled points in wave
-wave_1.number_of_points=80;
-wave_2.number_of_points=80;
 
 
 // Delta T
 double fps=100; //frame per second
 double time_interval=1/fps;
-//TOTAL_SIM
-int TOTAL_SIM=1000;
+
 //visualize updated_wave
 Gnuplot gp;
 cout << "Press Ctrl-C to quit Simulation Window." << std::endl;
 
- for (int i = 0; i < TOTAL_SIM; ++i) {
+ while (1) {
 wave_1=update_motion(wave_1,time_interval);
 wave_2=update_motion(wave_2,time_interval);
 
@@ -131,38 +114,24 @@ wave_2=update_motion(wave_2,time_interval);
 std::vector<std::pair<double, double> > pts_wave_1;
 std::vector<std::pair<double, double> > pts_wave_2;
 std::vector<std::pair<double, double> > pts_union;
-display display;
-array<double, 80> heightField;
+array<double, kNumberofPoints> heightField;
 // Clear height field
-for (double y_pos : heightField) {
+for (double& y_pos : heightField) {
       y_pos = 0.0;
 }
-
-accumlate_wave(wave_1,display,& pts_wave_1,& pts_union, &heightField);
-accumlate_wave(wave_2,display,& pts_wave_2,& pts_union, &heightField);
-//pts_wave_1=pts;
-
-//Comp comp_functor;
-//std::sort(pts_wave_1.begin(), pts_wave_1.end(), comp_functor);
-//std::sort(pts_wave_2.begin(), pts_wave_2.end(), comp_functor);
-
-//merge(pts_wave_2.begin(), pts_wave_2.end(), pts_wave_1.begin(), pts_wave_1.end(), std::back_inserter(pts_union));
-gp << "set yrange [-0.5:300]\n";
+accumlate_wave(wave_1,& pts_wave_1,& pts_union, &heightField);
+accumlate_wave(wave_2,& pts_wave_2,& pts_union, &heightField);
+//Plot resultant Wave
+gp << "set yrange [0:2]\n";
 gp << "set xrange [0:1]\n";
 gp<< "set title 'Simulation Window' \n";
 gp<< "set xlabel 'X Axis' \n";
 gp<< "set ylabel 'Y Axis' \n";
-//gp << "plot '-' with linespoints title 'Wave 1', "
-//		<< "'-' with linespoints title 'Wave 2',\n";
 gp<< "plot '-' with linespoints title 'Resultant Wave'\n";
-//gp << "plot '-' binary" << gp.binFmt1d(display.union_pts, "array") << "with lines notitle\n";
-//gp.sendBinary1d(display.union_pts);
-//gp.send1d(pts_wave_1);
-//gp.send1d(pts_wave_2);
 gp.send1d(pts_union);
 gp.flush();
 
-usleep(1000);
+usleep(3000);
 }
 
   return 0;
